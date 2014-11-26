@@ -87,6 +87,7 @@ class BaseArticleExtractor(WebStuffHandler):
     def __init__(self, *args, **kwargs):
         super(BaseArticleExtractor, self).__init__(*args, **kwargs)
         self._extr = self.extractor()
+        self._tree = lh.fromstring(self.raw_html)
 
     def _sanity_check(func):
             def wrapped(self, *args):
@@ -127,19 +128,18 @@ class TheHinduExtractor(BaseArticleExtractor, SocialShares):
 
     def __init__(self, *args, **kwargs):
         super(TheHinduExtractor, self).__init__(*args, **kwargs)
-        self.__tree = lh.fromstring(self.raw_html)
 
     @property
     def tags(self):
-        return self.__tree.xpath("//div[@id='articleKeywords']/p/a/text()")
+        return self._tree.xpath("//div[@id='articleKeywords']/p/a/text()")
 
     @property
     def section(self):
-        return self.__tree.xpath("//h3[@class='artbcrumb']/a/text()")[0]
+        return self._tree.xpath("//h3[@class='artbcrumb']/a/text()")[0]
 
     @property
     def topics(self):
-        return self.__tree.xpath('//h3[@class="cat"]/a/text()')
+        return self._tree.xpath('//h3[@class="cat"]/a/text()')
 
 
 class IndianExpressExtractor(BaseArticleExtractor, SocialShares):
@@ -152,27 +152,27 @@ class IndianExpressExtractor(BaseArticleExtractor, SocialShares):
             url += '/99'
 
         super(IndianExpressExtractor, self).__init__(url)
-        self.__tree = lh.fromstring(self.raw_html)
+
 
     @property
     def tags(self):
-        return self.__tree.xpath('//a[starts-with(@href,"/tag/")]/text()')
+        return self._tree.xpath('//a[starts-with(@href,"/tag/")]/text()')
 
     @property
     def section(self):
-        return self.__tree.xpath('//li[@class="first"]/a/text()')
+        return self._tree.xpath('//li[@class="first"]/a/text()')
 
 
 class TimesOfIndiaExtractor(BaseArticleExtractor, SocialShares):
 
     def __init__(self, *args, **kwargs):
         super(TimesOfIndiaExtractor, self).__init__(*args, **kwargs)
-        self.__tree = lh.fromstring(self.raw_html)
+
 
     @property
     def tags(self):
-        return self.__tree.xpath('//div[@class="read_more"]/a/text()')
+        return self._tree.xpath('//div[@class="read_more"]/a/text()')
 
     @property
     def section(self):
-        return self.__tree.xpath('//div[@class="bdcrumb"]/text()')[1][3:]
+        return self._tree.xpath('//div[@class="bdcrumb"]/text()')[1][3:]
