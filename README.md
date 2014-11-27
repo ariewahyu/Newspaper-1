@@ -45,7 +45,7 @@ The following properties are inherited from the `SocialShares` class, which make
 ```
 
 
-Now let's look at the newspaper-specific properties we added
+Now let's look at the newspaper-specific properties we extracted by extending the above two.
 
 ```python
 >>> article.tags
@@ -59,3 +59,9 @@ Now let's look at the newspaper-specific properties we added
 ```
 
 This was written for to prepare a newspaper dataset, where additional features over those provided by goose were needed.
+
+## Crawler
+
+### The Hindu Crawler
+
+Crawls the Hindu archives. Article text is stored as plain text files in the filesystem. The metadata is stored in an "index" in MongoDB. Crawling is done in two parts - first part requires Selenium and PhantomJS because of ajaxiness. Second part is plain old `requests` based.
