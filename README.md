@@ -64,4 +64,4 @@ This was written for to prepare a newspaper dataset, where additional features o
 
 ### The Hindu Crawler
 
-Crawls the Hindu archives. Article text is stored as plain text files in the filesystem. The metadata is stored in an "index" in MongoDB. Crawling is done in two parts - first part requires Selenium and PhantomJS because of ajaxiness. Second part is plain old `requests` based.
+Crawls [The Hindu Newspaper's](http://www.thehindu.com/) archives. Article text is stored as plain text files in the filesystem. The metadata is stored in an "index" in MongoDB. Crawling is done in two parts - first part requires Selenium and PhantomJS because of ajaxiness. Second part is plain old `requests` based.
